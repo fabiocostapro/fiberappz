@@ -1,0 +1,122 @@
+.header
+    width 100%
+    background-color cinza
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,.25);
+    .topbar
+        background: colorp
+        color white
+        .topbar-i
+            width 100%
+            height 50px
+            display flex
+            align-items center
+            justify-content value
+            .topbar-user
+                margin 0
+                strong
+                    text-transform: uppercase
+            .topbar-admin
+                margin-left 8px
+            .topbar-logout
+                margin-left auto
+    .header-i
+        position: relative
+        height nav-height
+        .logo
+            display flex
+            align-items center
+            float left
+            height nav-height
+            margin 0
+            a, img
+                display block
+            a
+                text-decoration: none
+                color texts
+                .empresa-dummy-w
+                    display flex
+                    align-items center
+                    height nav-height
+                    .icon-dummy
+                        display inline-block
+                        width 50px
+                        height 50px
+                        border 6px dotted colorp
+                    .empresa-dummy
+                        display inline-block
+                        font-size: 30px
+                        margin-left: 10px
+        .nav-mobile
+            display none
+            float right
+            height nav-mobile-height
+            .hamburger-w
+                display flex
+                height nav-mobile-height
+                width nav-mobile-height
+                background-color: colorp
+                .hamburger
+                    .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after
+                        background-color white
+        nav
+            float right
+            ul.nav-list
+                list-style: none
+                margin: 0
+                padding: 0
+                li
+                    position: relative
+                    display flex
+                    align-items center
+                    height: nav-height
+                    float left
+                    transition 0.3s
+                    &:hover:not(:last-child)
+                        background: cinza + 80%
+                    i
+                        margin-right: 4px
+                        color texts
+                    a, a:visited
+                        display block
+                        padding 0 20px
+                        color texts
+                        text-decoration: none
+                        text-transform: capitalize
+                        &:not(:only-child)::after
+                            line-height: 20px
+                            font-size: 10px
+                            padding-left 4px
+                            content ' \25bc'
+                li.search-icon
+                    margin-left 9px
+                    a
+                        padding 0
+                        height 38px
+                        width 38px
+                        border-radius 50%
+                        background: colorp
+                        text-align: center
+                        i.fa
+                            display inline-block
+                            line-height: 38px
+                            margin 0
+                            color white
+                            cursor pointer
+                    ul.nav-dropdown
+                        background: colorp
+                        list-style: none
+                        position: absolute
+                        display none
+                        z-index: 1
+                        border-radius 0 0 radius radius
+                        li
+                            min-width 190px
+                            &:hover
+                                background: white
+                                a, a:visited
+                                    color texts
+                            a, a:visited
+                                color white
+                                border-top none
+                                padding 15px
+                                line-height 20px

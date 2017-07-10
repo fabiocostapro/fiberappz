@@ -1,0 +1,24 @@
+{% extends 'layout-default.html' %}
+{% block page_class %}page-admin{% endblock %}
+
+{% block content %}
+{% from "_macro.html" import render_field %}
+    <section class="part">
+    <div class="part-i">
+    <div class="part-header">
+        <h2>Usuários</h2>        
+    </div>
+    <hr />
+    <div class="part-content">
+        <a class="btn btn-lg btn-default" href="/user-create">Criar</a>
+        <a class="btn btn-lg btn-default" href="/user-edit">Editar</a>
+        <a class="btn btn-lg btn-default" href="/user-delete">Deletar</a>        
+    </div>
+    <hr />
+    <div class="part-footer">
+        <a class="btn btn-lg btn-default btn-p" href="/"><i class="fa fa-undo"></i> Voltar</a>
+    </div>
+        
+
+</section>
+{% endblock %}

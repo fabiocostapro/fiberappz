@@ -1,0 +1,18 @@
+{% extends 'layout-default.html' %}
+{% block page_class %}page-index{% endblock %}
+
+{% block content %}
+<section class="part">
+    <div class="part-i">
+        <div class="part-header">
+            <button id="uptime" class="btn btn-default">Uptime</button>
+            <button id="ls" class="btn btn-default">Ls</button>
+        </div>
+        <hr />
+        <div class="part-content">
+            <p id="output">Waiting <span class="cursor"></span></p>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

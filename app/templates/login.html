@@ -1,0 +1,22 @@
+{% extends 'layout-default.html' %}
+{% block page_class %}page-login{% endblock %}
+
+{% block content %}
+{% from "_macro.html" import render_field %}
+<section class="part">
+    <div class="part-i">
+        <form class="form" id="LoginForm" method="POST">
+            <div class="form-inner">
+                <div class="form-group form-group-lg">
+                    {{ render_field(form.username, class="form-control", placeholder="Username") }}
+                </div>
+                <div class="form-group form-group-lg">
+                    {{ render_field(form.password, class="form-control", placeholder="Password") }}
+                </div>
+            </div>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <button id="contato-btn" type="submit" class="btn btn-lg btn-p"><i class='fa fa-sign-in'></i> Login</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
