@@ -1,12 +1,16 @@
 language: python
 python:
-  - "3.5"
+- '3.5'
 install: pip install -r requirements.txt
-env: SQLALCHEMY_DATABASE_URI = "sqlite:///storage.db" SQLALCHEMY_TRACK_MODIFICATIONS = True SECRET_KEY = "teste123"
+env: SQLALCHEMY_DATABASE_URI = "sqlite:///storage.db" SQLALCHEMY_TRACK_MODIFICATIONS
+  = True SECRET_KEY = "teste123"
 before_script:
-  - psql -c 'create database test;' -U postgres
+- psql -c 'create database test;' -U postgres
 deploy:
-    provider: heroku
-    api_key:
-        secure: "HeUULigwyDQDLL4jTpfx"
+  provider: heroku
+  api_key:
+    secure: LFln2UqmIVhEplQ+yXbyYR6Dnxbmhkxjd6lXv9UrWtikrJp4/Iv5D1h1mMr9Yu6soKX9394Y2zT8i4sIRpXDHjaj8/EUO65mkEagFaeOqrAclN103OwaXqDOmCJ/xgXmqTAfUeVGbPYC2ptHtN2dUuMjV3CFDZ++aE9lhqn864eNq/eiISiZg/DEjEAs2k3TxGF5vQZUyKmDSrpVS/CflqFPTENx2BU108Q+Wtt0aTX5r+DjiDywbc71/8XfMDiuRVlziyojkhvlNmUQqVvcz4PXXYAHiaNoKV5kwr9ma5oXHgzg0HZg8Y0EnD1Pxh5G5RI+pfvvVjU45lJ53HKd+ryKSXkKpzXbdva7rc8MlO9gxxLpr0jSQnSPoYbuZSwENO+fTPIObsNaI+vRG8lei3OCPfozPwqtnmFMBxbBxaIu5yuk8I6fNNghskowHvdaiOE7YL0+vuMietNr+f5yQYC8Wfdtq2582APoPPyOJq9ThRWrObCd9vbGZoWACKxXNniNqYjR4YPiOt9LVhM16pa+M5ew+XUi9I8eGiN9VWCrQZvMzwTKffki9vaRk+6uj+qugpK8xk0BiPTF2znH9JSx55Rp1ny9NgXHFT/Ez2WM6DZ6ckQnWGqwudA6McCRnfLGsw7GCASUcWjihU1f+b6jTcb/u0elV5zhVcWD0II=
+  app: fiberappz
+  on:
+    repo: fabiocostapro/fiberapp
 script: pytest
