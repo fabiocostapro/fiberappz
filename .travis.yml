@@ -8,5 +8,5 @@ before_script:
 deploy:
     provider: heroku
     api_key:
-        secure: "5c49a099-7a6b-412e-a171-1f759486b27b"
+        secure: "HeUULigwyDQDLL4jTpfx"
 script: pytest
