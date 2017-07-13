@@ -1,5 +1,5 @@
 Fiberappz v0.1 beta
 
-![alt text]((https://raw.githubusercontent.com/fabiocostapro/fiberappz/master/fiberapp/_src/img/diple-logo.png))
+![alt text](https://github.com/fabiocostapro/fiberappz/blob/master/_src/img/diple-logo.png)
 
 [![Build Status](https://travis-ci.org/fabiocostapro/fiberappz.svg?branch=master)](https://travis-ci.org/fabiocostapro/fiberappz)
