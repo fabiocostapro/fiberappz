@@ -150,7 +150,7 @@ gulp.task("sync-img", function() {
             console.log(data.toString());
         }
     }, function() {
-        console.log("End");
+        console.log("End ");
     });
 });
 
