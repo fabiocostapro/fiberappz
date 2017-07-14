@@ -1,4 +1,6 @@
 import os
+import os.path
+basedir = os.path.abspath(os.path.dirname("__file__"))
 
 
 class Config(object):
@@ -13,5 +15,5 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "mysql://fiberapp_user:quil1472@localhost/fiberapp_db"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "storage.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False

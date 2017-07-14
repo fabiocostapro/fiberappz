@@ -9,6 +9,7 @@ from mainapp import db
 from mainapp.models.tables import User
 from mainapp.controllers.forms import UserCreateForm
 from mainapp.controllers.forms import LoginForm
+from mainapp.controllers.ssh import uptime, ls
 
 from flask import render_template
 from flask import request
@@ -105,7 +106,7 @@ def logout():
 def ssh_request(action=""):
     print(action)
     if action == "uptime":
-        output = ssh.uptime("uptime")
+        output = uptime("uptime")
         counter = 1
         lines = {}
         for line in output:
@@ -113,7 +114,7 @@ def ssh_request(action=""):
             counter += 1
         print(json.dumps(output))
     if action == "ls":
-        output = ssh.ls("ls")
+        output = ls("ls")
         counter = 1
         lines = {}
         for line in output:
