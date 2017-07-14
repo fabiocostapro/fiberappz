@@ -11,10 +11,6 @@ csrf = CSRFProtect(app)
 mail = Mail(app)
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-manager = Manager(app)
-manager.add_command("db", MigrateCommand)
 
 from mainapp.models import tables
 from mainapp.controllers import forms, ssh, views
