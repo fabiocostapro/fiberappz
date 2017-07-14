@@ -1,35 +1,24 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
-from flask import Flask
+
+# from helper import date_format
+# from flask import make_response
+from mainapp import app
+from mainapp import mail
+from mainapp import db
+from mainapp.models.tables import User
+from mainapp.controllers.forms import UserCreateForm
+from mainapp.controllers.forms import LoginForm
+
 from flask import render_template
 from flask import request
 from flask import flash
-# from flask import g
-
 from flask import session
 from flask import url_for
 from flask import redirect
-# from flask import make_response
 
-from config import DevelopmentConfig
-
-from models import db
-from models import User
-
-from flask_wtf import CSRFProtect
-import ssh
-import forms
-import json
-
-# from helper import date_format
-
-from flask_mail import Mail
 from flask_mail import Message
-
-app = Flask(__name__)
-app.config.from_object(DevelopmentConfig)
-csrf = CSRFProtect()
-mail = Mail()
+import json
 
 
 @app.before_request
@@ -61,7 +50,7 @@ def admin():
 
 @app.route("/user-create", methods=["GET", "POST"])
 def user_create():
-    user_create_form = forms.UserCreateForm(request.form)
+    user_create_form = UserCreateForm(request.form)
     if request.method == "POST" and user_create_form.validate():
         user = User(user_create_form.username.data,
                     user_create_form.email.data,
@@ -83,7 +72,7 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    login_form = forms.LoginForm(request.form)
+    login_form = LoginForm(request.form)
     if request.method == "POST" and login_form.validate():
         username = login_form.username.data
         password = login_form.password.data
