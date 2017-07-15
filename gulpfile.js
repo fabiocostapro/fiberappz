@@ -20,7 +20,6 @@ var rsync                   = require("rsyncwrapper");
 var runSequence             = require("run-sequence");
 var rupture                 = require("rupture");
 
-
 //--------------------------------------------------------------
 
 var fs                      = require("fs");
@@ -67,7 +66,7 @@ gulp.task("stylus", function() {
         autoprefixer()
         ]))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest("app/static/assets/css/"))
+    .pipe(gulp.dest("mainapp/static/assets/css/"))
     .pipe(browserSync.stream())
 });
 
@@ -88,7 +87,7 @@ gulp.task("stylus", function() {
 gulp.task("js", function() {
     rsync({
         src: "_src/js/script.js",
-        dest: "app/static/assets/js/script.js",
+        dest: "mainapp/static/assets/js/script.js",
         recursive: true,
         args: [ "-v" ],
         delete: true,
@@ -111,7 +110,7 @@ gulp.task("js", function() {
 
 gulp.task("browser-sync", function() {
     browserSync.init({
-        proxy: "localhost:8000",
+        proxy: "0.0.0.0:5000",
         open: false
     });
 });
@@ -181,7 +180,7 @@ gulp.task("git-push", function() {
 //--------------------------------------------------------------
 
 gulp.task("watch", function () {
-    gulp.watch(["app/templates/*.html"]).on("change", browserSync.reload);
+    gulp.watch(["mainapp/templates/*.html"]).on("change", browserSync.reload);
     gulp.watch(["_src/styl/**/*.styl"], ["stylus"]).on("change", browserSync.reload);
     gulp.watch(["_src/js/*.js"], ["js"]).on("change", browserSync.reload);
 });
