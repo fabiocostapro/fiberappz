@@ -7,7 +7,7 @@ before_script:
 deploy:
   provider: heroku
   api_key:
-    secure: GcMjPsC6+9GvX0aJIwa9IaWopEkrk9O9b/nFtD9ckwJdHV8aBrML9vIvt43kQcwMnnle/BXSlXzhoJhwe6X23XDCDXjVwe6fGeuUJbKrkxC4U3fIZ/0mzeS8YMkbK9rqU46cG8L2xEnXWlW5VX7kTNkmGPUTGXO/kDF7Oh8aOxnLzI/MKYsJ8N2brIO/z/u1IeSWkhbTDQ2iWRScnDcIFP8GuLWxnCsO6qxTRk0EqJ+4GcHbVSj1g95IRI1ezONLba9iDp+AS4dAzWfPvsXgzWBhkPAZN/sJUO1Vwj0uwaQ48tsvZwUpPrHViKoxoJyc0kgTEQyrhr81W1XZEWQmEerA3zovS3S5yWDiqfL8d+WACM7geU5fOImmdpvigUXjDcc1UKz2Nd833Wef4xqCDxvU7Q+C55GflRCQHo9O94QDU6FNAQXAZ+ZFrxbuJj5FDyUgPqvcbYjrzkODUGbBE7uog4Csqs1uj3RCSCQG1v4OubGM0EkY9rROsTezW68oDEq9p64UgVH3kmxXjX1fl8+5KBqPPIFY/Fthz7AxIemtQo3tMvbB6E8q8mL4iUvXHpNAup1S+IBI2D0OSmseZIxqk5x+7NAfJE2tZGi5YA+Xd06nZXpMtkmqXahRD0X081uyFpVB+CTGvcViGoVZz8N3WyKgxBtD3k7YdKPU448=
+    secure: db80f594-665a-4ad8-b3fa-96bf6d2db9ba
   app: fiberappz
   on:
     repo: fabiocostapro/fiberappz
