@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 from mainapp import app
-from mainapp.controllers.ssh import uptime, ls
+from mainapp.controllers.ssh import enable
 from flask import render_template
 import json
 
@@ -20,19 +20,12 @@ def index():
 @app.route("/ssh-request", methods=["GET", "POST"])
 def ssh_request(action=""):
     print(action)
-    if action == "uptime":
-        output = uptime("uptime")
+    lines = {}
+    if action == "enable":
+        output = enable("enable")
         counter = 1
-        lines = {}
         for line in output:
             lines["line{}".format(counter)] = line
             counter += 1
         print(json.dumps(output))
-    if action == "ls":
-        output = ls("ls")
-        counter = 1
-        lines = {}
-        for line in output:
-            lines["line{}".format(counter)] = line
-            counter += 1
     return json.dumps(lines)
