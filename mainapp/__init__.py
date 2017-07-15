@@ -11,8 +11,10 @@ csrf = CSRFProtect(app)
 mail = Mail(app)
 db = SQLAlchemy(app)
 
+# NECESSÁRIO IMPORTAR AS TABELAS ANTES DO create_all
+from mainapp.models import tables
 with app.app_context():
     db.create_all()
 
-from mainapp.models import tables
+
 from mainapp.controllers import forms, ssh, views
