@@ -9,6 +9,8 @@ deploy:
   app: fiberappz
   on:
     repo: fabiocostapro/fiberappz
+  api_key:
+    secure: lRvKwibp5lidx5zzALHr/i81Zl438NacpBrNv2g1/yoHlqwb+Ps+b8U2CEUHOu9vi13RYzDPguyuqZe8DqWYZmnWSPkLSrRc2Ct03bunjQysUvcI9ml5IsYZ/Wk1iIE+MreJvSfn/hksdrayKq9TPUEf0hpQYHsqinaHHQ8/ebtjDWUsRwnY4BobY4bwXEjQ8sJhyk339HOgoennWR3t4ZgB61ReACsViTZ4xshNdSMD6rZpTkoOmrgFVJrRTunpmkQZ82nQy7PKghHB4tvS5xNjALAhSordW2V3DlOHm5AC3yE9SqEqz+3NLYNqPp3pw5jeg7MSeaXRhvMQG+RvGCbPJKTJUaBkUO5pRdxW3Wdf7j+1KRwctaH1l5nuAHAxNBz+G/BmrgbxmtELroqg5alO+MvQetp9qrk6DW7K2n2QFAhSPo3LOlxf5XQ/8uUvA+UcF/MIT7F1itkxvXbh0oAeWObDEyDYLcanB+o1Oog9lHrvv/mkvwVx0EwSD9ghr4N6m+V68GgbfAqXObDXnFUiMJc8uKVhGxEr6mQAi7dqEppkL8zT21pCY4cwvuu84eIRGPrBHaZ18IiwMdhAien3lWTZcf99qZSJ5FYuN/I4Ft3Pd0tPG8bWtKsxCy87xO0i2VqiOjTTirEHs7z7zwpD/1Bat/RzfeLDcb2uY9E=
 script: pytest
 env:
   global:
