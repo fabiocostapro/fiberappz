@@ -7,8 +7,6 @@ var concatJs                = require("gulp-concat");
 var concatCss               = require("gulp-concat-css");
 var git                     = require("gulp-git");
 var googleWebFonts          = require("gulp-google-webfonts");
-var cp                      = require("child_process");//jekyll
-var imagemin                = require("gulp-imagemin");
 var notify                  = require("gulp-notify");
 var plumber                 = require("gulp-plumber");
 var postcss                 = require("gulp-postcss");
@@ -70,18 +68,6 @@ gulp.task("stylus", function() {
     .pipe(browserSync.stream())
 });
 
-// gulp.task("third-css", function() {
-//     return gulp.src("assets/third/**/*.css")
-//     .pipe(concatCss("third.css"))
-//     .pipe(gulp.dest("assets/css/"))
-// });
-
-// gulp.task("min-css", function() {
-//     return gulp.src("_site/assets/css/*.css")
-//     .pipe(cleanCSS())
-//     .pipe(gulp.dest("_site/assets/css/"))
-// });
-
 //------------------------------------------------------------JS
 
 gulp.task("js", function() {
@@ -100,12 +86,6 @@ gulp.task("js", function() {
     });
 });
 
-// gulp.task("third-js", function() {
-//     return gulp.src("_src/third/**/*.js")
-//     .pipe(concatJs("third.js"))
-//     .pipe(gulp.dest("assets/js/"))
-// });
-
 //--------------------------------------------------------------
 
 gulp.task("browser-sync", function() {
@@ -121,22 +101,6 @@ gulp.task("browserSync-reload", function() {
 
 //--------------------------------------------------------------
 
-gulp.task("sync-favicon", function() {
-    rsync({
-        src: ["_src/favicon/"],
-        dest: "assets/favicon/",
-        recursive: true,
-        args: ["-v"],
-        delete: true,
-        compareMode: "checksum",
-        onStdout: function (data) {
-            console.log(data.toString());
-        }
-    }, function() {
-        console.log("End");
-    });
-});
-
 gulp.task("sync-img", function() {
     rsync({
         src: ["_src/img"],
@@ -151,12 +115,6 @@ gulp.task("sync-img", function() {
     }, function() {
         console.log("End ");
     });
-});
-
-gulp.task("min-image", function() {
-    return gulp.src("_src/img/*.*")
-    .pipe(imagemin())
-    .pipe(gulp.dest("assets/img/"))
 });
 
 //--------------------------------------------------------------

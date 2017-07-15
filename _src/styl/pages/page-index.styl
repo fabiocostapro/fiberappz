@@ -1,26 +1,22 @@
 .page-index
     .part-i
-        .part-content
-            background: black
+        #ssh-request
+            display none
             padding 25px
             border-radius radius
-            #output
-                font-family: monospace
-                color: green
+        #main-loader
+            display block
+            width 145px
+            height 50px
+            text-align: center
+            i.fa, p
+                line-height: 50px
+                display: inline-block
+            i.fa
+                float left
+                font-size: 50px
+                color colors
+            p
+                float: right
                 margin 0
-                .cursor
-                    position absolute
-                    margin-top: 1px
-                    margin-left: 3px
-                    animation-name: blinker
-                    animation-iteration-count: infinite
-                    animation-timing-function: cubic-bezier(1,0,0,1)
-                    animation-duration: 1s
-                    display: inline-block
-                    width: 9px
-                    height: 16px
-                    border-radius 1px
-                    background: green
-                @keyframes blinker
-                    from { opacity: 1.0 } to { opacity: 0.0 }
         
