@@ -13,5 +13,5 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = ""
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:{}@localhost/postgres".format(os.environ.get("PASSWORD_POSTGRES"))
     SQLALCHEMY_TRACK_MODIFICATIONS = False

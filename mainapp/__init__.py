@@ -9,8 +9,10 @@ app.config.from_object(DevelopmentConfig)
 
 csrf = CSRFProtect(app)
 mail = Mail(app)
-
 db = SQLAlchemy(app)
+
+with app.app_context():
+    db.create_all()
 
 from mainapp.models import tables
 from mainapp.controllers import forms, ssh, views
