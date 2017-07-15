@@ -6,9 +6,10 @@ before_script:
 - psql -c 'create database test;' -U postgres
 deploy:
   provider: heroku
-  api_key:
-    secure: db80f594-665a-4ad8-b3fa-96bf6d2db9ba
   app: fiberappz
   on:
     repo: fabiocostapro/fiberappz
 script: pytest
+env:
+  global:
+    secure: Ncplls2GCcQzeRUMv0Qk7kvcDEXKA45cE13YIoJgkmmTnisI/LGQHnh2eX14VEjEFz/Uk6TzRXd4W7bzkW3YWY4hGG1fjhuj52iuKmeg53UUdKDcVDJXI7FoBVTJH3hnoFDnhY3WpKwX4wO6+qGqGz815quL1/zkpSM6WmU7wLq09FsRSR/C7+Fi++dlYS3NDROqA/Im3XnDVNTfuVrnbzWc6KB6BR5oRMMnyzxlVT/+xVNfZJqDOT6Sip5XEYeSUx2wg1RV22bqEIncxZsD9TvT3WvmgGfLunW9+jF58k+kQRJVNzFrzFplxnDUsrqVK0kAAHPjOVeLyfpFTkrj7XRN4aS+dcRyml9pFmHAfhHvOAbgNXKJx4zUe4WcXa5gTTPvIPikfi7fLIzdEXJIFmiVLqP4aFIsX2p8+FNmfdpXzm/jRfHIQv5wyqEkmk6dIPecx1qfhgScn+wbCkrnezJkVtgN8zVGMYerM5foE3TN2zFAg5dj6IcsCMTLUXf2caRaG1UgHGemwG3sNorT9v17IzRkurinYbUn5SPjM1EQsBNT170WMrWG3tojz9mRmTRnmGlpJcLR3RKOgic7brj0+WUEqD1H4Q5c6Wg7ISMB9xIoJ7i9bTPF+tjh3LVT4mwfXQ9nIl0uaUoIbC3rl48AYVvnQKO4F47X2EID40Q=
