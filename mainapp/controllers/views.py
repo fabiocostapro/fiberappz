@@ -25,7 +25,7 @@ import json
 @app.before_request
 def before_request():
     user_pages = ["index", "ssh_request"]
-    admin_pages = ["admin", "user_create", "user_edit", "user_delete"]
+    admin_pages = ["admin", "user_edit", "user_delete"]
     if "username" not in session and request.endpoint in user_pages:
         return redirect(url_for("login"))
     elif "username" in session and request.endpoint in ["login"]:
