@@ -19,6 +19,7 @@ def index():
 @app.route("/ssh-request/list-onts", methods=["GET", "POST"])
 def ssh_request():
     status_onts = StatusOnts()
-    status_onts_in_json = status_onts.in_json(["enable", "config", "display ont autofind all"])
+    status_onts_in_json = status_onts.in_json()
+    # status_onts_in_json = status_onts.in_json(["enable", "config", "scroll 512", "display ont autofind all"])
     print(status_onts_in_json)
     return json.dumps(status_onts_in_json)
