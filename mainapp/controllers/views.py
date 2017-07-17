@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 from mainapp import app
-from mainapp.controllers.ssh import enable
+from mainapp.controllers.ssh import StatusOnts
 from flask import render_template
 import json
 
@@ -16,16 +16,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/ssh-request/<action>", methods=["GET", "POST"])
-@app.route("/ssh-request", methods=["GET", "POST"])
-def ssh_request(action=""):
-    print(action)
-    lines = {}
-    if action == "enable":
-        output = enable("enable")
-        counter = 1
-        for line in output:
-            lines["line{}".format(counter)] = line
-            counter += 1
-        print(json.dumps(output))
-    return json.dumps(lines)
+@app.route("/ssh-request/list-onts", methods=["GET", "POST"])
+def ssh_request():
+    status_onts = StatusOnts()
+    status_onts_in_json = status_onts.in_json(["enable", "config", "display ont autofind all"])
+    print(status_onts_in_json)
+    return json.dumps(status_onts_in_json)
