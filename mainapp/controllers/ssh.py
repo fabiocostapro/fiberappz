@@ -10,7 +10,8 @@ class StatusOnts:
         self.ssh = pmk.SSHClient()
         self.ssh.load_system_host_keys()
         self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
-        self.ssh.connect(os.environ.get("CONNECT_FIBERAPP"))
+        self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="72fcosta", password=os.environ.get(
+            "PASSWORD_SSH_FIBERAPP"), look_for_keys=False, allow_agent=False)
 
     def __del__(self):
         self.ssh.close()

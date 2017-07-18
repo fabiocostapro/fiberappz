@@ -10,12 +10,9 @@ $(function() {
             type: "POST",
             success: function(response) {
                 var response = JSON.parse(response);
-
                 $.each(response, function(index, value) {
-                    $("#ssh-request").append("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td><td>" + value[2] + "/" + value[3] + "/" + value[4] + "</td><td>" + value[5] + "</td><td><div class='input-group'><input class='form-control' type='text' /></div></td><td></td><td><a>View & Authorize</></td></tr>");
+                    $("#ssh-request").append("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td><td>" + value[2] + "/" + value[3] + "/" + value[4] + "</td><td>" + value[5] + "</td><td><div class='input-group'><input class='form-control' type='text' /></div></td><td></td><td><a id='authorize'>View & Authorize</></td></tr>");
                 });
-
-
                 $("#ssh-request").css({"display": "table-row-group"});
                 $("#main-loader").css({"display": "none"});
             },
@@ -23,6 +20,10 @@ $(function() {
                 console.log(error);
             }
         });
-    } 
+    }
+
+    $("#authorize").click(function() {
+        alert( "Handler for .click() called." );
+    });
 
 });
