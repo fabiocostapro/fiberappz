@@ -1,41 +1,40 @@
 import paramiko as pmk
-import json
 import re
 import time
 
 
 class StatusOnts:
 
-    # def __init__(self):
-    #     self.ssh = pmk.SSHClient()
-    #     self.ssh.load_system_host_keys()
-    #     self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
-    #     self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="sergio",
-    #                      password="sugar222", look_for_keys=False, allow_agent=False)
+    def __init__(self):
+        self.ssh = pmk.SSHClient()
+        self.ssh.load_system_host_keys()
+        self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
+        self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="sergio",
+                         password="sugar222", look_for_keys=False, allow_agent=False)
 
-    # def __del__(self):
-    #     self.ssh.close()
+    def __del__(self):
+        self.ssh.close()
 
-    # def in_json(self, commands):
-        # shell = self.ssh.invoke_shell()
-        # for command in commands:
-        #     shell.send(command + "\n")
-        # time.sleep(2)
-        # shell_output = str(shell.recv(5000))
+    def in_json(self, commands):
+        shell = self.ssh.invoke_shell()
+        for command in commands:
+            shell.send(command + "\n")
+        time.sleep(2)
+        shell_output = str(shell.recv(5000))
 
-    def in_json(self):
-        def read_file():
-            with open("output.txt", "r") as file:
-                datafile = file.read()
-            return datafile
+    # def in_json(self):
+    #     def read_file():
+    #         with open("output.txt", "r") as file:
+    #             datafile = file.read()
+    #         return datafile
 
-        shell_output = read_file()
-        print(shell_output)
+    #     shell_output = read_file()
+    #     print(shell_output)
 
-        def write_file():
-            with open("output.txt", "w") as file:
-                file.write(shell_output)
-        write_file()
+    #     def write_file():
+    #         with open("output.txt", "w") as file:
+    #             file.write(shell_output)
+    #     write_file()
 
         id_q = (r"Number\s*:\s(\d)")
         SN_q = (r"SN\s*:\s(\S{16})")
