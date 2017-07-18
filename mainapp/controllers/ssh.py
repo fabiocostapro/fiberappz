@@ -1,3 +1,4 @@
+import os
 import paramiko as pmk
 import re
 import time
@@ -9,8 +10,7 @@ class StatusOnts:
         self.ssh = pmk.SSHClient()
         self.ssh.load_system_host_keys()
         self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
-        self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="sergio",
-                         password="sugar222", look_for_keys=False, allow_agent=False)
+        self.ssh.connect(os.environ.get("CONNECT_FIBERAPP"))
 
     def __del__(self):
         self.ssh.close()
