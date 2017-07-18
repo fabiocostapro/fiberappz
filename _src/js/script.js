@@ -12,7 +12,7 @@ $(function() {
                 var response = JSON.parse(response);
 
                 $.each(response, function(index, value) {
-                    $("#ssh-request").append("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td><td>" + value[2] + "/" + value[3] + "/" + value[4] + "</td><td>" + value[5] + "</td><td></td><td></td><td></td></tr>");
+                    $("#ssh-request").append("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td><td>" + value[2] + "/" + value[3] + "/" + value[4] + "</td><td>" + value[5] + "</td><td><div class='input-group'><input class='form-control' type='text' /></div></td><td></td><td><a>View & Authorize</></td></tr>");
                 });
 
 

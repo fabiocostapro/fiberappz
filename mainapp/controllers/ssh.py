@@ -5,25 +5,25 @@ import time
 
 
 class StatusOnts:
+
     # def __init__(self):
     #     self.ssh = pmk.SSHClient()
     #     self.ssh.load_system_host_keys()
     #     self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
     #     self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="sergio",
     #                      password="sugar222", look_for_keys=False, allow_agent=False)
-    #     print("Connected")
 
     # def __del__(self):
     #     self.ssh.close()
 
     # def in_json(self, commands):
-    def in_json(self):
-    #     shell = self.ssh.invoke_shell()
-    #     for command in commands:
-    #         shell.send(command + "\n")
-    #     time.sleep(2)
-    #     shell_output = str(shell.recv(5000))
+        # shell = self.ssh.invoke_shell()
+        # for command in commands:
+        #     shell.send(command + "\n")
+        # time.sleep(2)
+        # shell_output = str(shell.recv(5000))
 
+    def in_json(self):
         def read_file():
             with open("output.txt", "r") as file:
                 datafile = file.read()
@@ -31,10 +31,11 @@ class StatusOnts:
 
         shell_output = read_file()
         print(shell_output)
-        # def write_file():
-        #     with open("output.txt", "w") as file:
-        #         file.write(shell_output)
-        # write_file()
+
+        def write_file():
+            with open("output.txt", "w") as file:
+                file.write(shell_output)
+        write_file()
 
         id_q = (r"Number\s*:\s(\d)")
         SN_q = (r"SN\s*:\s(\S{16})")
@@ -53,6 +54,7 @@ class StatusOnts:
         c = 0
         ont_info = {}
         for item in id_ret:
-            ont_info["{}".format(c)] = [item.strip(), SN_ret[c].strip(), F_ret[c].strip(), S_ret[c].strip(), P_ret[c].strip(), VendorID_ret[c].strip()]
+            ont_info["{}".format(c)] = [item.strip(), SN_ret[c].strip(), F_ret[c].strip(),
+                                        S_ret[c].strip(), P_ret[c].strip(), VendorID_ret[c].strip()]
             c += 1
         return ont_info
