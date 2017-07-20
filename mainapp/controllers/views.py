@@ -1,8 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 from mainapp import app
-from mainapp.controllers.ssh import StatusOnts
-from mainapp.controllers.ssh import NextOntId
+from mainapp.controllers.ssh import Inside
 from flask import render_template
 from flask import request
 import json
@@ -20,16 +19,17 @@ def index():
 
 @app.route("/ssh-request/list-onts", methods=["GET", "POST"])
 def list_onts():
-    status_onts = StatusOnts()
-    status_onts_filtered = status_onts.filtered()
-    # status_onts_filtered = status_onts.filtered(["enable", "config", "scroll 512", "display ont autofind all"])
-    return json.dumps(status_onts_filtered)
+    inside = Inside()
+    status_onts = inside.status_onts()
+    print("list_onts() => {}".format(status_onts))
+    return json.dumps(status_onts)
 
 
 @app.route("/ssh-request/authorize", methods=["GET", "POST"])
 def authorize():
+    inside = Inside()
     F = request.args.get("F", "Err")
     S = request.args.get("S", "Err")
     P = request.args.get("P", "Err")
-    next_ont_id = NextOntId(F, S, P)
+    next_ont_id = inside.next_ont_id(F, S, P)
     return json.dumps(next_ont_id)

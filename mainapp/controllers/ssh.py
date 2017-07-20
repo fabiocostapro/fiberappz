@@ -4,38 +4,57 @@ import re
 import time
 
 
-class StatusOnts:
+class Inside:
 
-    # def __init__(self):
-    #     self.ssh = pmk.SSHClient()
-    #     self.ssh.load_system_host_keys()
-    #     self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
-    #     self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="72fcosta", password=os.environ.get(
-    #         "PASSWORD_SSH_FIBERAPP"), look_for_keys=False, allow_agent=False)
+    def __init__(self):
+        self.ssh = pmk.SSHClient()
+        self.ssh.load_system_host_keys()
+        self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
+        self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="72fcosta", password=os.environ.get(
+            "PASSWORD_SSH_FIBERAPP"), look_for_keys=False, allow_agent=False)
+        self.shell = self.ssh.invoke_shell()
 
-    # def __del__(self):
-    #     self.ssh.close()
+    def __del__(self):
+        self.ssh.close()
 
-    # def in_json(self, commands):
-    #     shell = self.ssh.invoke_shell()
-    #     for command in commands:
-    #         shell.send(command + "\n")
-    #     time.sleep(2)
-    #     shell_output = str(shell.recv(5000))
+    def run_commands(self, commands):
+        time.sleep(3)
+        for command in commands:
+            self.shell.send(command + "\n")
+        time.sleep(3)
+        shell_output = str(self.shell.recv(5000))
+        return shell_output
 
-    def filtered(self):
-        def read_file():
-            with open("output.txt", "r") as file:
-                datafile = file.read()
-            return datafile
+    def check_ouput(self, shell_output):
+        welcome = [r"#"]
+        for pattern in welcome:
+            pattern_q = pattern
+            pattern_ret = re.findall(pattern_q, shell_output)
+            if len(pattern_ret) < 2:
+                pattern_ret.append("error")
+                print(pattern_ret)
+                return pattern_ret
+        not_welcome = [r"Unknown", r"#[A-z 0-9 _]{1,}'"]
+        for pattern in not_welcome:
+            pattern_q = pattern
+            pattern_ret = re.findall(pattern_q, shell_output)
+            if len(pattern_ret) > 0:
+                pattern_ret.append("error")
+                print(pattern_ret)
+                return pattern_ret
 
-        shell_output = read_file()
+    def status_onts(self):
+        open("output.txt", "w").close()
+        shell_output = self.run_commands(["enable", "config", "scroll 512", "display ont autofind all"])
+        check_output = self.check_ouput(shell_output)
+        if check_output:
+            return check_output
 
         def write_file():
             with open("output.txt", "w") as file:
                 file.write(shell_output)
         write_file()
-
+        status_onts = {}
         id_q = (r"Number\s*:\s(\d)")
         SN_q = (r"SN\s*:\s(\S{16})")
         F_q = (r"F\/S\/P\s*:\s(\d)")
@@ -48,15 +67,32 @@ class StatusOnts:
         S_ret = re.findall(S_q, shell_output)
         P_ret = re.findall(P_q, shell_output)
         VendorID_ret = re.findall(VendorID_q, shell_output)
-
         c = 0
-        ont_info = {}
         for item in id_ret:
-            ont_info["{}".format(c)] = [item.strip(), SN_ret[c].strip(), F_ret[c].strip(),
-                                        S_ret[c].strip(), P_ret[c].strip(), VendorID_ret[c].strip()]
+            status_onts["{}".format(c)] = [item.strip(), SN_ret[c].strip(), F_ret[c].strip(),
+                                           S_ret[c].strip(), P_ret[c].strip(), VendorID_ret[c].strip()]
             c += 1
-        return ont_info
+        return status_onts
 
+    def next_ont_id(self, f, s, p):
+        open("output.txt", "w").close()
+        shell_output = self.run_commands(
+            ["enable", "config", "scroll 512", "interface gpon {}/{}".format(f, s), "display ont info {} all".format(p)]
+        )
 
-def NextOntId(f, s, p):
-    return {"a": f, "b": s}
+        def write_file():
+            with open("output.txt", "w") as file:
+                file.write(shell_output)
+        write_file()
+        next_ont_id = {shell_output}
+        self.check_ouput()
+        ont_q = (r"(\d?\d)\s*[^ ]*\s*active")
+        ont_ret = re.findall(ont_q, shell_output)
+        c = 0
+        for item in ont_ret:
+            next_ont_id["{}".format(c)] = [item.strip()]
+            item = int(item)
+            c += 1
+        print(next_ont_id)
+
+        return next_ont_id
