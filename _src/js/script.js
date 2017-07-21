@@ -49,7 +49,7 @@ $(function() {
         var scriptLine3 = "<strong>VendorID: </strong>" + VendorId;
         var scriptLine4 = "<strong>Description: </strong>" + Description;
         var scriptLine5 = "<strong>VLAN: </strong>" + Vlan;
-        var scriptLine6 = "<strong>SCRIPT: </strong>" + scriptType;
+        var scriptLine6 = "<strong>Script: </strong>" + scriptType;
         console.log("VendorID= " + VendorId);
 
         $("<tr><td colspan='5'></td><td colspan='3' class='authorize-confirm'>" + scriptLine1 + "<br />" + scriptLine2 + "<br />" + scriptLine3 + "<br />" + scriptLine4 + "<br />" + scriptLine5 + "<br />" + scriptLine6 + "<a id='btn-cancel' class='btn btn-default btn-s pull-right'>Cancel</a><a id='btn-confirm' class='btn btn-default btn-p pull-right'>Confirm</a></td></tr>").insertAfter($(this).parents("tr"));
