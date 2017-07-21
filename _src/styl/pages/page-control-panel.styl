@@ -1,4 +1,4 @@
-.page-index
+.page-control-panel
     .part-i
         .table
             margin-bottom 0
@@ -20,13 +20,20 @@
                 display none
                 padding 25px
                 border-radius radius
-                tr td a
-                    cursor pointer
-                    font-weight bold
-                .input-group
-                    input
-                        border-radius radius
-        #alert-request
+                tr td
+                    .input-group
+                        input
+                            border-radius radius
+                    a
+                        cursor pointer
+                        font-weight bold
+                tr td.authorize-confirm
+                    background: cinza + 65%
+                    text-align: left
+                    padding 25px
+                    .btn
+                        margin-left 6px
+        #alert-list-onts, #alert-authorize
             display none
         #main-loader
             display block

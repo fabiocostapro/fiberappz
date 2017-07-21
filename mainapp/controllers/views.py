@@ -17,6 +17,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/control-panel", methods=["GET", "POST"])
+def control_panel():
+    return render_template("control-panel.html")
+
+
 @app.route("/ssh-request/list-onts", methods=["GET", "POST"])
 def list_onts():
     inside = Inside()
