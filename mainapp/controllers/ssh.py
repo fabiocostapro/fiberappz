@@ -6,34 +6,34 @@ import time
 
 class Inside:
 
-    def __init__(self):
-        self.ssh = pmk.SSHClient()
-        self.ssh.load_system_host_keys()
-        self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
-        self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="72fcosta", password=os.environ.get(
-            "PASSWORD_SSH_FIBERAPP"), look_for_keys=False, allow_agent=False)
-        self.shell = self.ssh.invoke_shell()
+    # def __init__(self):
+    #     self.ssh = pmk.SSHClient()
+    #     self.ssh.load_system_host_keys()
+    #     self.ssh.set_missing_host_key_policy(pmk.AutoAddPolicy())
+    #     self.ssh.connect(hostname="fibra.redetelenew.com.br", port=2222, username="72fcosta", password=os.environ.get(
+    #         "PASSWORD_SSH_FIBERAPP"), look_for_keys=False, allow_agent=False)
+    #     self.shell = self.ssh.invoke_shell()
 
-    def __del__(self):
-        self.ssh.close()
+    # def __del__(self):
+    #     self.ssh.close()
 
-    def run_commands(self, commands):
-        time.sleep(4)
-        for command in commands:
-            self.shell.send(command + "\n")
-        time.sleep(4)
-        shell_output = str(self.shell.recv(5000))
-        if len(shell_output) > 1:
-            return shell_output
-        else:
-            error = []
-            error.append("error")
-            return error
+    # def run_commands(self, commands):
+    #     time.sleep(4)
+    #     for command in commands:
+    #         self.shell.send(command + "\n")
+    #     time.sleep(4)
+    #     shell_output = str(self.shell.recv(5000))
+    #     if len(shell_output) > 1:
+    #         return shell_output
+    #     else:
+    #         error = []
+    #         error.append("error")
+    #         return error
 
-    # def run_commands(self):
-    #     with open("output.txt", "r") as file:
-    #         shell_output = file.read()
-    #     return shell_output
+    def run_commands(self):
+        with open("output.txt", "r") as file:
+            shell_output = file.read()
+        return shell_output
 
     def check_ouput(self, shell_output):
         # prompt_q = [r"(#')"]
@@ -60,9 +60,9 @@ class Inside:
                 return pattern_ret
 
     def status_onts(self):
-        open("output.txt", "w").close()
-        shell_output = self.run_commands(["enable", "config", "scroll 512", "display ont autofind all"])
-        # shell_output = self.run_commands()
+        # open("output.txt", "w").close()
+        # shell_output = self.run_commands(["enable", "config", "scroll 512", "display ont autofind all"])
+        shell_output = self.run_commands()
         check_output = self.check_ouput(shell_output)
         if check_output:
             return check_output
@@ -92,10 +92,11 @@ class Inside:
         return status_onts
 
     def next_ont_id(self, f, s, p):
-        open("output.txt", "w").close()
-        shell_output = self.run_commands(
-            ["enable", "config", "scroll 512", "interface gpon {}/{}".format(f, s), "display ont info {} all".format(p)]
-        )
+        # open("output.txt", "w").close()
+        shell_output = self.run_commands()
+        # shell_output = self.run_commands(
+        #     ["enable", "config", "scroll 512", "interface gpon {}/{}".format(f, s), "display ont info {} all".format(p)]
+        # )
         check_output = self.check_ouput(shell_output)
         if check_output:
             return check_output
