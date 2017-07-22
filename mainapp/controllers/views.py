@@ -33,8 +33,24 @@ def list_onts():
 @app.route("/ssh-request/authorize", methods=["GET", "POST"])
 def authorize():
     inside = Inside()
-    F = request.args.get("F", "Err")
-    S = request.args.get("S", "Err")
-    P = request.args.get("P", "Err")
-    next_ont_id = inside.next_ont_id(F, S, P)
-    return json.dumps(next_ont_id)
+    sn = request.args.get("sn", "Err")
+    f = request.args.get("f", "Err")
+    s = request.args.get("s", "Err")
+    p = request.args.get("p", "Err")
+    vendorId = request.args.get("vendorId", "Err")
+    description = request.args.get("description", "Err")
+    description = description.strip()
+    if len(description) < 1:
+        description = "sem_desc"
+    if len(description) > 4:
+        description = description[:10]
+    vlan = request.args.get("vlan", "Err")
+    vlan = vlan.strip()
+    if len(vlan) < 1:
+        vlan = "100"
+    if len(vlan) > 4:
+        vlan = vlan[:4]
+    scriptType = request.args.get("scriptType", "Err")
+    gemPort = request.args.get("gemPort", "Err")
+    authorize_ont = inside.authorize_ont(sn, f, s, p, vendorId, description, vlan, scriptType, gemPort)
+    return json.dumps(authorize_ont)

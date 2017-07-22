@@ -45,33 +45,51 @@ $(function() {
         var Description = ($(this).parent().siblings(".description").find("input").val());
         var Vlan = ($(this).parent().siblings(".vlan").find("input").val());
         if(VendorId == "LQDE") {
-            var scriptType = "ont-srvprofile-id 3";
+            var scriptType = "ont-lineprofile-id 3 ont-srvprofile-id 3";
         } else {
-            var scriptType = "ont-srvprofile-id 1";
+            var scriptType = "ont-lineprofile-id 1 ont-srvprofile-id 1";
         }
-        var scriptLine1 = "<strong>SN: </strong>" + Sn;
-        var scriptLine2 = "<strong>F/S/P: </strong>" + F + "/" + S + "/" + P;
-        var scriptLine3 = "<strong>VendorID: </strong>" + VendorId;
-        var scriptLine4 = "<strong>Description: </strong>" + Description;
-        var scriptLine5 = "<strong>VLAN: </strong>" + Vlan;
-        var scriptLine6 = "<strong>Script: </strong>" + scriptType;
-        $("<tr class='authorize-confirm'><td colspan='7'>" + scriptLine1 + "<br />" + scriptLine2 + "<br />" + scriptLine3 + "<br />" + scriptLine4 + "<br />" + scriptLine5 + "<br />" + scriptLine6 + "<a class='btn-cancel btn btn-default btn-s pull-right'>Cancel</a><a class='btn-confirm btn btn-default btn-p pull-right'>Confirm</a></td></tr>").insertAfter($(this).parents("tr"));
-        $("i.fa", this).css({"display": "inline-block"});
+        var auth_sn = "<p class='authorize-sn'><strong>SN: </strong><span>" + Sn + "</span></p>";
+        var auth_f = "<p class='authorize-f'><strong>F: </strong><span>" + F + "</span></p>";
+        var auth_s = "<p class='authorize-s'><strong>S: </strong><span>" + S + "</span></p>";
+        var auth_p = "<p class='authorize-p'><strong>P: </strong><span>" + P + "</span></p>";
+        var auth_vendorid = "<p class='authorize-vendorid'><strong>VendorID: </strong><span>" + VendorId + "</span></p>";
+        var auth_description = "<p class='authorize-description'><strong>Description: </strong><span>" + Description + "</span></p>";
+        var auth_vlan = "<p class='authorize-vlan'><strong>VLAN: </strong><span>" + Vlan + "</span></p>";
+        var auth_scripttype = "<p class='authorize-scripttype'><strong>Script: </strong><span>" + scriptType + "</span></p>";
+        $("<tr class='authorize-confirm'><td colspan='7'>" + auth_sn + auth_f + auth_s + auth_p + auth_vendorid + '<br />' + auth_description + auth_vlan + '<br />' + auth_scripttype + "<a class='btn-cancel btn btn-default btn-s pull-right'>Cancel</a><a class='btn-confirm btn btn-default btn-p pull-right'><span class='loader'><i class='fa fa-refresh fa-spin'></i></span> Confirm</a></td></tr>").insertAfter($(this).parents("tr"));
+        $(".alert").css({"display": "none"})
         $(".authorize").css({"color": "#ddd"});
+    });
+
+    $(".table").on("click", ".btn-confirm", function() {
+        var sn = ($(this).siblings(".authorize-sn").find("span").html());
+        var f = ($(this).siblings(".authorize-f").find("span").html());
+        var s = ($(this).siblings(".authorize-s").find("span").html());
+        var p = ($(this).siblings(".authorize-p").find("span").html());
+        var vendorId = ($(this).siblings(".authorize-vendorid").find("span").html());
+        var description = ($(this).siblings(".authorize-description").find("span").html());
+        var vlan = ($(this).siblings(".authorize-vlan").find("span").html());
+        if(vendorId == "LQDE") {
+            var scriptType = "ont-lineprofile-id 3 ont-srvprofile-id 3";
+            var gemPort = "37";
+        } else {
+            var scriptType = "ont-lineprofile-id 1 ont-srvprofile-id 1";
+            var gemPort = "1";
+        }
+        $("i.fa", this).css({"display": "inline-block"});
         $("#alert-authorize").css({"display": "none"})
         $.ajax({
-            url: "/ssh-request/authorize?F=" + F + "&S=" + S + "&P=" + P,
+            url: "/ssh-request/authorize?sn=" + sn + "&f=" + f + "&s=" + s + "&p=" + p + "&vendorId=" + vendorId + "&description=" + description + "&vlan=" + vlan + "&scriptType=" + scriptType + "&gemPort=" + gemPort,
             type: "POST",
             success: function(response) {
                 var response = JSON.parse(response);
+                $(".authorize-confirm").remove();
+                $(".authorize").css({"color": ""});
                 if($.inArray("error", response) !== -1) {
-                    $(".authorize i.fa").css({"display": "none"});
-                    $(".authorize").css({"display": "inline-block"});
-                    $("#alert-authorize").css({"display": "block"})
-                    $("#main-loader").css({"display": "none"});                 
+                    $("#alert-authorize-error").css({"display": "block"});
                 } else {
-                    $(".authorize i.fa").css({"display": "none"});
-                    $(".authorize").css({"display": "inline-block"});
+                    $("#alert-authorize-success").css({"display": "block"});
                 }
             },
             error: function(error) {
