@@ -1,9 +1,22 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 from mainapp import app
+from mainapp import db
+
+from mainapp.models.tables import User
+from mainapp.models.tables import Olt
+
+from mainapp.controllers.forms import UserCreateForm
+from mainapp.controllers.forms import LoginForm
 from mainapp.controllers.ssh import Inside
+
 from flask import render_template
 from flask import request
+from flask import flash
+from flask import session
+from flask import url_for
+from flask import redirect
+
 import json
 
 
@@ -14,7 +27,8 @@ def page_not_found(e):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    login_form = LoginForm()
+    return render_template("index.html", login_form=login_form)
 
 
 @app.route("/control-panel", methods=["GET", "POST"])

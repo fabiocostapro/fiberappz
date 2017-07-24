@@ -1,10 +1,21 @@
-{% extends 'layout-default.html' %}
+{% extends 'layout-index.html' %}
 {% block page_class %}page-index{% endblock %}
 
 {% block content %}
+{% from "_macro.html" import render_field %}
 <section class="part">
     <div class="part-i">
-        <a href="/control-panel">login...</a>
+        <form class="form" name="loginForm" id="loginForm" method="POST">
+            <div class="form-inner">
+                <div class="form-group form-group-lg">
+                {{ render_field(login_form.username, class="form-control", placeholder="Usuário") }}
+                </div>
+                <div class="form-group form-group-lg">
+                {{ render_field(login_form.password, class="form-control", placeholder="Senha") }}
+                </div>
+            </div>
+            <button id="contato-btn" type="submit" class="btn btn-lg btn-p pull-right"><i class='fa fa-sign-in'></i> Login</button>
+        </form>
     </div>
 </section>
 {% endblock %}
