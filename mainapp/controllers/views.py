@@ -16,6 +16,7 @@ from flask import flash
 from flask import session
 from flask import url_for
 from flask import redirect
+from flask_login import login_user
 
 import json
 
@@ -25,15 +26,44 @@ def page_not_found(e):
     return render_template("page-404.html"), 404
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    login_form = LoginForm(request.form)
+    if request.method == "POST" and login_form.validate():
+        username = login_form.username.data
+        password = login_form.password.data
+
+        user = User.query.filter_by(username=username).first()
+        if user is not None and user.verify_password(password):
+            login_user(user)
+        else:
+            flash("Usuário ou senha inválido!")
+
+    return render_template("page-login.html", login_form=login_form)
+
+
+@app.route("/user-create", methods=["GET", "POST"])
+def user_create():
+    user_create_form = UserCreateForm(request.form)
+    if request.method == "POST" and user_create_form.validate():
+        user = User(user_create_form.username.data,
+                    user_create_form.email.data,
+                    user_create_form.password.data)
+        db.session.add(user)
+        db.session.commit()
+
+    return render_template("page-user-create.html", form=user_create_form)
+
+
+@app.route("/adm", methods=["GET", "POST"])
+def adm():
+    pass
+    return render_template("page-adm.html")
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
-    login_form = LoginForm()
-    return render_template("index.html", login_form=login_form)
-
-
-@app.route("/control-panel", methods=["GET", "POST"])
-def control_panel():
-    return render_template("control-panel.html")
+    return render_template("page-control.html")
 
 
 @app.route("/ssh-request/list-onts", methods=["GET", "POST"])

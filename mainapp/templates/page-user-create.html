@@ -4,29 +4,28 @@
 {% block content %}
 {% from "_macro.html" import render_field %}
 <section class="part">
+    <a class="btn btn-default btn-p close" href="/adm"><i class="fa fa-times"></i></a>
     <div class="part-i">
         <div class="part-header">
-            <h2>Usuários - Criar</h2> 
+            <h2>Novo usuário</h2> 
         </div>
+        <hr />
         <div class="part-content">
             <form class="form" id="UserCreateForm" method="POST">
                 <div class="form-inner">
                     <div class="form-group form-group-lg">
-                        {{ render_field(form.username, class="form-control", placeholder="Username") }}
+                        {{ render_field(form.username, class="form-control", placeholder="Usuário") }}
                     </div>
                     <div class="form-group form-group-lg">
                         {{ render_field(form.email, class="form-control", placeholder="E-mail") }}
                     </div>
                     <div class="form-group form-group-lg">
-                        {{ render_field(form.password, class="form-control", placeholder="Password") }}
+                        {{ render_field(form.password, class="form-control", placeholder="Senha") }}
                     </div>
                 </div>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-                <button id="contato-btn" type="submit" class="btn btn-lg btn-t">Ok</button>
+                <button id="contato-btn" type="submit" class="btn btn-lg btn-p pull-right">Ok</button>
             </form>
-        </div>
-        <div class="part-footer">
-            <a class="btn btn-lg btn-default btn-p" href="/admin"><i class="fa fa-undo"></i> Voltar</a>
         </div>
     </div>
 </section>
