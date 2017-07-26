@@ -16,9 +16,20 @@ from flask import flash
 from flask import session
 from flask import url_for
 from flask import redirect
-from flask_login import login_user
 
 import json
+
+
+@app.before_request
+def before_request():
+    user_pages = ["index", "ssh_request"]
+    admin_pages = ["admin", "user_create", "user_edit", "user_delete"]
+    if "username" not in session and request.endpoint in user_pages:
+        return redirect(url_for("login"))
+    elif "username" in session and request.endpoint in ["login"]:
+        return redirect(url_for("index"))
+    elif "admin" not in session and request.endpoint in admin_pages:
+        return redirect(url_for("index"))
 
 
 @app.errorhandler(404)
@@ -32,14 +43,24 @@ def login():
     if request.method == "POST" and login_form.validate():
         username = login_form.username.data
         password = login_form.password.data
-
         user = User.query.filter_by(username=username).first()
-        if user is not None and user.verify_password(password):
-            login_user(user)
+        if user is not None and user.check_password(password):
+            admin = user.admin
+            session["username"] = username
+            session["admin"] = admin
+            print(user)
+            return redirect(url_for("index"))
         else:
-            flash("Usuário ou senha inválido!")
-
+            flash("Usuário ou senha inválido!", "danger")
     return render_template("page-login.html", login_form=login_form)
+
+
+@app.route("/logout")
+def logout():
+    if "username" in session:
+        session.pop("username")
+        session.pop("admin")
+    return redirect(url_for("login"))
 
 
 @app.route("/user-create", methods=["GET", "POST"])
@@ -62,10 +83,10 @@ def user_create():
     return render_template("page-user-create.html", form=user_create_form)
 
 
-@app.route("/adm", methods=["GET", "POST"])
-def adm():
+@app.route("/admin", methods=["GET", "POST"])
+def admin():
     pass
-    return render_template("page-adm.html")
+    return render_template("page-admin.html")
 
 
 @app.route("/", methods=["GET", "POST"])
