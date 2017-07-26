@@ -2,27 +2,27 @@
 <html lang="pt-br">
 {% include 'head.html' %}
 <body class="layout-default {% block page_class %}{% endblock %}">
-{% include 'topbar.html' %}
-{% include 'header.html' %}
+    {% include 'topbar.html' %}
+    {% include 'header.html' %}
     <div class="content">
         <div class="content-i">
             <main class="main">
                 <div class="main-i center">
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                    {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                        {{ message }}
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
                     {% block content %}
                     {% endblock %}
                 </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible center" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
             </main>
         </div>        
     </div>
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
 </body>
 </html>

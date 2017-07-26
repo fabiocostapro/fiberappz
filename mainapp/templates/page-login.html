@@ -5,18 +5,24 @@
 {% from "_macro.html" import render_field %}
 <section class="part">
     <div class="part-i">
-        <form class="form" name="loginForm" id="loginForm" method="POST">
-            <div class="form-inner">
-                <div class="form-group form-group-lg">
-                {{ render_field(login_form.username, class="form-control", placeholder="Usuário") }}
+        <div class="part-header">
+            <h2>Login</h2> 
+        </div>
+        <hr />
+        <div class="part-content">
+            <form class="form clearfux" name="loginForm" id="loginForm" method="POST">
+                <div class="form-inner">
+                    <div class="form-group form-group-lg">
+                    {{ render_field(login_form.username, class="form-control", placeholder="Usuário") }}
+                    </div>
+                    <div class="form-group form-group-lg">
+                    {{ render_field(login_form.password, class="form-control", placeholder="Senha") }}
+                    </div>
                 </div>
-                <div class="form-group form-group-lg">
-                {{ render_field(login_form.password, class="form-control", placeholder="Senha") }}
-                </div>
-            </div>
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-            <button id="contato-btn" type="submit" class="btn btn-lg btn-p pull-right"><i class='fa fa-sign-in'></i> Login</button>
-        </form>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <button id="contato-btn" type="submit" class="btn btn-lg btn-p pull-right"><i class='fa fa-sign-in'></i> Login</button>
+            </form>
+        </div>
     </div>
 </section>
 {% endblock %}

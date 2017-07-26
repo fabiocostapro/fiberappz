@@ -47,10 +47,17 @@ def user_create():
     user_create_form = UserCreateForm(request.form)
     if request.method == "POST" and user_create_form.validate():
         user = User(user_create_form.username.data,
+                    user_create_form.name.data,
+                    user_create_form.cpf.data,
+                    user_create_form.company.data,
+                    user_create_form.cnpj.data,
                     user_create_form.email.data,
-                    user_create_form.password.data)
+                    user_create_form.password.data
+                    )
         db.session.add(user)
         db.session.commit()
+        flash("Usuário cadastrado com sucesso!", "success")
+        return redirect(url_for("user_create"))
 
     return render_template("page-user-create.html", form=user_create_form)
 
