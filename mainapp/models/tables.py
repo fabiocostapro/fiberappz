@@ -43,6 +43,6 @@ class Olt(db.Model):
     __tablename__ = "olts"
 
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     ip = db.Column(db.String(15), unique=True)
     port = db.Column(db.String(40))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

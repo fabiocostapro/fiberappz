@@ -45,6 +45,14 @@ class UserCreateForm(Form):
             raise validators.ValidationError("Usuário já cadastrado!")
 
 
+class UserReadForm(Form):
+    username = StringField("Usuário",
+                           [
+                               validators.Required(message="Preenchimento obrigatório"),
+                               validators.length(min=4, max=25, message="Mínimo de 4 e máximo de 25 caracteres")
+                           ])
+
+
 class OltCreateForm(Form):
     username = StringField("Username",
                            [

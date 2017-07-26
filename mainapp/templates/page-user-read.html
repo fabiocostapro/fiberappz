@@ -1,0 +1,26 @@
+{% extends 'layout-default.html' %}
+{% block page_class %}page-user-read{% endblock %}
+
+{% block content %}
+{% from "_macro.html" import render_field %}
+<section class="part">
+    <a class="btn btn-default btn-p close" href="/admin"><i class="fa fa-times"></i></a>
+    <div class="part-i">
+        <div class="part-header">
+            <h2>Buscar usuário</h2> 
+        </div>
+        <hr />
+        <div class="part-content">
+        <form class="form clearfix" id="UserReadForm" method="POST">
+                <div class="form-inner">
+                    <div class="form-group form-group-lg">
+                        {{ render_field(form.username, class="form-control", placeholder="Usuário") }}
+                    </div>
+                </div>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <button id="contato-btn" type="submit" class="btn btn-lg btn-p pull-right">Buscar</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

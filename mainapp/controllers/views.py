@@ -6,8 +6,9 @@ from mainapp import db
 from mainapp.models.tables import User
 from mainapp.models.tables import Olt
 
-from mainapp.controllers.forms import UserCreateForm
 from mainapp.controllers.forms import LoginForm
+from mainapp.controllers.forms import UserCreateForm
+from mainapp.controllers.forms import UserReadForm
 from mainapp.controllers.ssh import Inside
 
 from flask import render_template
@@ -81,6 +82,46 @@ def user_create():
         return redirect(url_for("user_create"))
 
     return render_template("page-user-create.html", form=user_create_form)
+
+
+@app.route("/user-read", methods=["GET", "POST"])
+def user_read():
+    user_read_form = UserReadForm(request.form)
+    if request.method == "POST" and user_read_form.validate():
+        username = user_read_form.username.data
+        return redirect(url_for("index"))
+
+    return render_template("page-user-read.html", form=user_read_form)
+
+
+@app.route("/user-list", methods=["GET", "POST"])
+def user_list():
+    user_read_form = UserReadForm(request.form)
+    if request.method == "POST" and user_read_form.validate():
+        username = user_read_form.username.data
+        return redirect(url_for("index"))
+
+    return render_template("page-user-list.html", form=user_read_form)
+
+
+# @app.route("/olt-create", methods=["GET", "POST"])
+# def olt_create():
+#     user_create_form = UserCreateForm(request.form)
+#     if request.method == "POST" and user_create_form.validate():
+#         user = User(user_create_form.username.data,
+#                     user_create_form.name.data,
+#                     user_create_form.cpf.data,
+#                     user_create_form.company.data,
+#                     user_create_form.cnpj.data,
+#                     user_create_form.email.data,
+#                     user_create_form.password.data
+#                     )
+#         db.session.add(user)
+#         db.session.commit()
+#         flash("Usuário cadastrado com sucesso!", "success")
+#         return redirect(url_for("user_create"))
+
+#     return render_template("page-user-create.html", form=user_create_form)
 
 
 @app.route("/admin", methods=["GET", "POST"])
