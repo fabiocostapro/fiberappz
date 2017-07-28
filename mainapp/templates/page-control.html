@@ -1,9 +1,10 @@
 {% extends 'layout-default.html' %}
-{% block page_class %}page-control-panel{% endblock %}
+{% block page_class %}page-control{% endblock %}
 
 {% block content %}
 <section class="part">
     <div class="part-i">
+        <span class="link-create-olt">Adicionar Olt <a href="/olt-create"><i class="fa fa-plus-square fa-2x"></i></a></span>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -19,6 +20,7 @@
             <tbody id="ssh-request">
             </tbody>
         </table>
+        <hr />
         <div id="alert-list-onts" class="alert alert-warning">
             <strong>Aviso!</strong> Houve um erro na requisição. Atualize a página.
         </div>

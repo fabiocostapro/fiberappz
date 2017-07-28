@@ -1,0 +1,38 @@
+{% extends 'layout-default.html' %}
+{% block page_class %}page-olt-create{% endblock %}
+
+{% block content %}
+{% from "_macro.html" import render_field %}
+<section class="part">
+    <a class="btn btn-default btn-p close" href="/admin"><i class="fa fa-times"></i></a>
+    <div class="part-i">
+        <div class="part-header">
+            <h2>Nova Olt</h2> 
+        </div>
+        <hr />
+        <div class="part-content">
+        <form class="form clearfix" id="OltCreateForm" method="POST">
+                <div class="form-inner">
+                    <div class="form-group form-group-lg">
+                        {{ render_field(form.name, class="form-control", placeholder="Apelido para a Olt") }}
+                    </div>
+                    <div class="form-group form-group-lg">
+                        {{ render_field(form.ip, class="form-control", placeholder="Ip (000.000.000.000)") }}
+                    </div>
+                    <div class="form-group form-group-lg">
+                        {{ render_field(form.port, class="form-control", placeholder="Porta") }}
+                    </div>
+                    <div class="form-group form-group-lg">
+                        {{ render_field(form.login, class="form-control", placeholder="Login acesso SSH") }}
+                    </div>
+                    <div class="form-group form-group-lg">
+                        {{ render_field(form.password, class="form-control", placeholder="Senha acesso SSH") }}
+                    </div>
+                </div>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <button id="contato-btn" type="submit" class="btn btn-lg btn-p pull-right">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

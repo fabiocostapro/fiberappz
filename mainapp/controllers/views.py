@@ -8,6 +8,7 @@ from mainapp.models.tables import Olt
 
 from mainapp.controllers.forms import LoginForm
 from mainapp.controllers.forms import UserCreateForm
+from mainapp.controllers.forms import OltCreateForm
 from mainapp.controllers.forms import UserReadForm
 from mainapp.controllers.ssh import Inside
 
@@ -23,14 +24,14 @@ import json
 
 @app.before_request
 def before_request():
-    user_pages = ["index", "ssh_request"]
-    admin_pages = ["admin", "user_create", "user_edit", "user_delete"]
-    if "username" not in session and request.endpoint in user_pages:
+    logged_pages = ["control", "ssh_request", "olt_create"]
+    admin_pages = ["admin", "user_edit", "user_delete"]
+
+    if "username" not in session and request.endpoint in admin_pages:
         return redirect(url_for("login"))
-    elif "username" in session and request.endpoint in ["login"]:
-        return redirect(url_for("index"))
-    elif "admin" not in session and request.endpoint in admin_pages:
-        return redirect(url_for("index"))
+
+    if "username" not in session and request.endpoint in logged_pages:
+        return redirect(url_for("login"))
 
 
 @app.errorhandler(404)
@@ -50,7 +51,7 @@ def login():
             session["username"] = username
             session["admin"] = admin
             print(user)
-            return redirect(url_for("index"))
+            return redirect(url_for("control"))
         else:
             flash("Usuário ou senha inválido!", "danger")
     return render_template("page-login.html", login_form=login_form)
@@ -78,10 +79,28 @@ def user_create():
                     )
         db.session.add(user)
         db.session.commit()
-        flash("Usuário cadastrado com sucesso!", "success")
-        return redirect(url_for("user_create"))
+        flash("Usuário cadastrado com sucesso! Faça seu login.", "success")
+        return redirect(url_for("login"))
 
     return render_template("page-user-create.html", form=user_create_form)
+
+
+@app.route("/olt-create", methods=["GET", "POST"])
+def olt_create():
+    olt_create_form = OltCreateForm(request.form)
+    if request.method == "POST" and olt_create_form.validate():
+        user = User(olt_create_form.name.data,
+                    olt_create_form.ip.data,
+                    olt_create_form.port.data,
+                    olt_create_form.login.data,
+                    olt_create_form.password.data,
+                    )
+        db.session.add(user)
+        db.session.commit()
+        flash("Olt cadastrado com sucesso!", "success")
+        return redirect(url_for("user_create"))
+
+    return render_template("page-olt-create.html", form=olt_create_form)
 
 
 @app.route("/user-read", methods=["GET", "POST"])
@@ -104,26 +123,6 @@ def user_list():
     return render_template("page-user-list.html", form=user_read_form)
 
 
-# @app.route("/olt-create", methods=["GET", "POST"])
-# def olt_create():
-#     user_create_form = UserCreateForm(request.form)
-#     if request.method == "POST" and user_create_form.validate():
-#         user = User(user_create_form.username.data,
-#                     user_create_form.name.data,
-#                     user_create_form.cpf.data,
-#                     user_create_form.company.data,
-#                     user_create_form.cnpj.data,
-#                     user_create_form.email.data,
-#                     user_create_form.password.data
-#                     )
-#         db.session.add(user)
-#         db.session.commit()
-#         flash("Usuário cadastrado com sucesso!", "success")
-#         return redirect(url_for("user_create"))
-
-#     return render_template("page-user-create.html", form=user_create_form)
-
-
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     pass
@@ -131,7 +130,7 @@ def admin():
 
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+def control():
     return render_template("page-control.html")
 
 

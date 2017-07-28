@@ -1,4 +1,4 @@
-{% extends 'layout-login.html' %}
+{% extends 'layout-without-topbar.html' %}
 {% block page_class %}page-login{% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
         </div>
         <hr />
         <div class="part-content">
-            <form class="form clearfux" name="loginForm" id="loginForm" method="POST">
+            <form class="form clearfix" name="loginForm" id="loginForm" method="POST">
                 <div class="form-inner">
                     <div class="form-group form-group-lg">
                     {{ render_field(login_form.username, class="form-control", placeholder="Usuário") }}
@@ -22,6 +22,8 @@
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                 <button id="contato-btn" type="submit" class="btn btn-lg btn-p pull-right"><i class='fa fa-sign-in'></i> Login</button>
             </form>
+            <hr />
+            <span class="link-create-user">Quer testar o aplicativo por 30 dias? <a href="/user-create">Cadastre-se</a>.</span>
         </div>
     </div>
 </section>

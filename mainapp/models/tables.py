@@ -44,5 +44,12 @@ class Olt(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    name = db.Column(db.String(40))
     ip = db.Column(db.String(15), unique=True)
     port = db.Column(db.String(40))
+    login = db.Column(db.String(40))
+    password = db.Column(db.String(40))
+    created_date = db.Column(db.DateTime, default=datetime.datetime.now)
+
+    def __repr__(self):
+        return "<Olt %r>" % self.name
