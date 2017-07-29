@@ -1,31 +1,54 @@
 $(function() {
     console.log(top.location.pathname);
 
-    if(top.location.pathname === "/control-panel"){
-        $(window).on("load", SshRequest);
-        function SshRequest() {
-            $.ajax({
-                url: "/ssh-request/list-onts",
-                type: "POST",
-                success: function(response) {
-                    var response = JSON.parse(response);
-                    if($.inArray("error", response) !== -1) {
-                        $("#alert-list-onts").css({"display": "block"})
-                        $("#main-loader").css({"display": "none"});
-                    } else {
-                        $.each(response, function(index, value) {
-                            $("#ssh-request").append("<tr><td>" + value[0] + "</td><td class='sn'>" + value[1] + "</td><td class='fsp'>" + value[2] + "/" + value[3] + "/" + value[4] + "</td><td class='vendorid'>" + value[5] + "</td><td class='description'><div class='input-group'><input class='form-control' type='text' /></div></td><td class='vlan'><div class='input-group'><input class='form-control' type='text' /></div></td><td><a class='authorize'>Authorize</a></td></tr>");
-                        });
-                        $("#ssh-request").css({"display": "table-row-group"});
-                        $("#main-loader").css({"display": "none"});
-                    };
-                },
-                error: function(error) {
-                    console.log(error);
-                },
-            });
-        };        
-    }
+    $("#get-olts").on("click", ".olt-item-list", function() {
+        var lorem = $(this).html();
+        $("#olt-selected").html(lorem);
+        $("#test-connection").css({"display": "block"});
+        $("#test-connection .test-connection-loader").css({"display": "inline-block"});
+        $("#test-connection .test-connection-success").css({"display": "none"});
+        $("#test-connection .test-connection-error").css({"display": "none"});
+        $.ajax({
+            url: "/ssh-request/test-connection",
+            type: "POST",
+            success: function(response) {
+                var response = JSON.parse(response);
+                console.log(response);
+                $("#test-connection .test-connection-loader").css({"display": "none"});
+                if(response == "True") {
+                    $("#test-connection .test-connection-success").css({"display": "inline-block"});
+                } else {
+                    $("#test-connection .test-connection-error").css({"display": "inline-block"});
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            },
+        });
+    });
+
+    $("#LOREMIPSUM").on("click", ".FOOBAR", function() {
+        $.ajax({
+            url: "/ssh-request/list-onts",
+            type: "POST",
+            success: function(response) {
+                var response = JSON.parse(response);
+                if($.inArray("error", response) !== -1) {
+                    $("#alert-list-onts").css({"display": "block"})
+                    $("#main-loader").css({"display": "none"});
+                } else {
+                    $.each(response, function(index, value) {
+                        $("#ssh-request").append("<tr><td>" + value[0] + "</td><td class='sn'>" + value[1] + "</td><td class='fsp'>" + value[2] + "/" + value[3] + "/" + value[4] + "</td><td class='vendorid'>" + value[5] + "</td><td class='description'><div class='input-group'><input class='form-control' type='text' /></div></td><td class='vlan'><div class='input-group'><input class='form-control' type='text' /></div></td><td><a class='authorize'>Authorize</a></td></tr>");
+                    });
+                    $("#ssh-request").css({"display": "table-row-group"});
+                    $("#main-loader").css({"display": "none"});
+                };
+            },
+            error: function(error) {
+                console.log(error);
+            },
+        });
+    });        
 
     $(".table").on("click", ".btn-cancel", function() {
         $(".authorize").css({"color": ""});

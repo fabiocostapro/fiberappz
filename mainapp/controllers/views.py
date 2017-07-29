@@ -10,7 +10,7 @@ from mainapp.controllers.forms import LoginForm
 from mainapp.controllers.forms import UserCreateForm
 from mainapp.controllers.forms import OltCreateForm
 from mainapp.controllers.forms import UserReadForm
-from mainapp.controllers.ssh import Inside
+from mainapp.controllers.ssh import InSsh
 
 from flask import render_template
 from flask import request
@@ -138,10 +138,18 @@ def admin():
 
 @app.route("/ssh-request/list-onts", methods=["GET", "POST"])
 def list_onts():
-    inside = Inside()
-    status_onts = inside.status_onts()
+    in_ssh = InSsh()
+    status_onts = in_ssh.status_onts()
     print("list_onts() => {}".format(status_onts))
     return json.dumps(status_onts)
+
+
+@app.route("/ssh-request/test-connection", methods=["GET", "POST"])
+def test_connection():
+    in_ssh = InSsh()
+    test_connection = in_ssh.test_connection()
+    print(test_connection)
+    return json.dumps(test_connection)
 
 
 @app.route("/ssh-request/authorize", methods=["GET", "POST"])
