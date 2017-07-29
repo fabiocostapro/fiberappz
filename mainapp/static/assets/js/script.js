@@ -1,5 +1,5 @@
 $(function() {
-    console.log(top.location.pathname);
+    console.log(":)");
 
     $("#get-olts").on("click", ".olt-item-list", function() {
         var lorem = $(this).html();
