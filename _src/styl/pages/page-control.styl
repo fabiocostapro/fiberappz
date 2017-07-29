@@ -14,17 +14,31 @@
                 margin 0 0 0 auto
         .part-content
             #test-connection
+                margin 30px 0
+                padding-left: 10px
+                padding-right: 10px
+                width 100%
+                height 50px
+                border 1px solid #8c8c8c
+                border-radius radius
                 display none
+                align-items center
+                .test-connection-loader
+                .test-connection-success
+                .test-connection-error
+                    margin-left: 4px
+                    display none
                 .test-connection-loader
                     i.fa
                         color colorp
                 .test-connection-success
-                    display none
                     color #3c763d
                 .test-connection-error
-                    display none
                     color #a94442
-            .ssh-return
+                #get-status-onts
+                    display none
+                    margin-left auto
+            #ssh-return
                 display none
                 .table
                     margin-bottom 0

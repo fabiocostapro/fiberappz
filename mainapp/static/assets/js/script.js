@@ -4,10 +4,12 @@ $(function() {
     $("#get-olts").on("click", ".olt-item-list", function() {
         var lorem = $(this).html();
         $("#olt-selected").html(lorem);
-        $("#test-connection").css({"display": "block"});
+        $("#ssh-return").css({"display": "none"});
+        $("#test-connection").css({"display": "flex"});
         $("#test-connection .test-connection-loader").css({"display": "inline-block"});
         $("#test-connection .test-connection-success").css({"display": "none"});
         $("#test-connection .test-connection-error").css({"display": "none"});
+        $("#get-status-onts").css({"display": "none"});
         $.ajax({
             url: "/ssh-request/test-connection",
             type: "POST",
@@ -16,7 +18,8 @@ $(function() {
                 console.log(response);
                 $("#test-connection .test-connection-loader").css({"display": "none"});
                 if(response == "True") {
-                    $("#test-connection .test-connection-success").css({"display": "inline-block"});
+                    $("#test-connection .test-connection-success").css({"display": "inline-flex"});
+                    $("#get-status-onts").css({"display": "inline-block"});
                 } else {
                     $("#test-connection .test-connection-error").css({"display": "inline-block"});
                 }
@@ -27,7 +30,8 @@ $(function() {
         });
     });
 
-    $("#LOREMIPSUM").on("click", ".FOOBAR", function() {
+    $("#get-status-onts").on("click", function() {
+        $("#ssh-return").css({"display": "block"});
         $.ajax({
             url: "/ssh-request/list-onts",
             type: "POST",
