@@ -4,7 +4,20 @@
 {% block content %}
 <section class="part">
     <div class="part-i">
-        <span class="link-create-olt">Adicionar Olt <a href="/olt-create"><i class="fa fa-plus-square fa-2x"></i></a></span>
+        <div class="dropdown my-olts">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Minhas Olts<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            {% if olt_list.count() > 0 %}
+                {% for olt in olt_list %}
+                    <li><a href="">{{ olt.name }}</a></li>
+                {% endfor %}
+            {% else %}
+                <li><a href="/olt-create">Vazio</a></li>
+            {% endif %}
+            </ul>
+        </div>
+        <a class="btn btn-default btn-s link-create-olt"><i class="fa fa-plus-square"></i> Adicionar Olt <a href="/olt-create"></a></a>
         <table class="table table-hover">
             <thead>
                 <tr>

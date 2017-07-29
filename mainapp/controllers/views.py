@@ -39,6 +39,12 @@ def page_not_found(e):
     return render_template("page-404.html"), 404
 
 
+@app.route("/", methods=["GET", "POST"])
+def control():
+    olt_list = Olt.query.join(User).add_columns(Olt.name).filter_by(id=session["user_id"])
+    return render_template("page-control.html", olt_list=olt_list)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     login_form = LoginForm(request.form)
@@ -47,10 +53,9 @@ def login():
         password = login_form.password.data
         user = User.query.filter_by(username=username).first()
         if user is not None and user.check_password(password):
-            admin = user.admin
             session["username"] = username
-            session["admin"] = admin
-            print(user)
+            session["user_id"] = user.id
+            session["admin"] = user.admin
             return redirect(url_for("control"))
         else:
             flash("Usuário ou senha inválido!", "danger")
@@ -89,16 +94,18 @@ def user_create():
 def olt_create():
     olt_create_form = OltCreateForm(request.form)
     if request.method == "POST" and olt_create_form.validate():
-        user = User(olt_create_form.name.data,
-                    olt_create_form.ip.data,
-                    olt_create_form.port.data,
-                    olt_create_form.login.data,
-                    olt_create_form.password.data,
-                    )
-        db.session.add(user)
+        user_id = session["user_id"]
+        olt = Olt(user_id,
+                  olt_create_form.name.data,
+                  olt_create_form.ip.data,
+                  olt_create_form.port.data,
+                  olt_create_form.login.data,
+                  olt_create_form.password.data,
+                  )
+        db.session.add(olt)
         db.session.commit()
         flash("Olt cadastrado com sucesso!", "success")
-        return redirect(url_for("user_create"))
+        return redirect(url_for("control"))
 
     return render_template("page-olt-create.html", form=olt_create_form)
 
@@ -127,11 +134,6 @@ def user_list():
 def admin():
     pass
     return render_template("page-admin.html")
-
-
-@app.route("/", methods=["GET", "POST"])
-def control():
-    return render_template("page-control.html")
 
 
 @app.route("/ssh-request/list-onts", methods=["GET", "POST"])

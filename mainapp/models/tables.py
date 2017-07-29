@@ -51,5 +51,13 @@ class Olt(db.Model):
     password = db.Column(db.String(40))
     created_date = db.Column(db.DateTime, default=datetime.datetime.now)
 
+    def __init__(self, user_id, name, ip, port, login, password):
+        self.user_id = user_id
+        self.name = name
+        self.ip = ip
+        self.port = port
+        self.login = login
+        self.password = password
+
     def __repr__(self):
         return "<Olt %r>" % self.name
